@@ -60,7 +60,6 @@ data ServantError
   = FailureResponse
     { responseStatus            :: Status
     , responseContentType       :: MediaType
-    , responseBody              :: ByteString
     }
   | DecodeFailure
     { decodeError               :: String
@@ -292,7 +291,6 @@ makeRequest method req isWantedStatus bUrl = do
           putMVar resp $ Left $ FailureResponse (mkStatus statusCode .
                                                        pack . JSString.unpack $ bsStatusText)
                                                 ("unknown" // "unknown")
-                                                (fromStrict bsResp)
 
 
   jsXhrOnReadyStateChange jRequest cb
